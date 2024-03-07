@@ -1,8 +1,24 @@
 <script setup>
 import { onMounted, ref } from 'vue'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
+
+
+const router =useRouter()
 
 const isLoggedIn =ref(false)
+const searchText =ref('')
+
+
+const handdleSearch = (event) => {
+    if(event.key ==='Enter') {
+        router.push({
+            name:'search',
+            query:{
+                q:searchText.value
+            }
+        })
+    } 
+}
 
 onMounted(() =>  {{
     if(localStorage.getItem('isLoggedIn')){
@@ -32,7 +48,9 @@ const logout = () => {
                 <RouterLink :to="{ name: 'home' }" class="btn btn-ghost text-xl">MEOW SHOP</RouterLink>
             </div>
             <div class="form-control">
-                <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto rounded-full" />
+                <input type="text" placeholder="Search" 
+                class="input input-bordered w-24 md:w-auto rounded-full"  
+                v-model="searchText" @keyup="handdleSearch"/>
             </div>
             <div class="flex-none">
                 <div class="dropdown dropdown-end">

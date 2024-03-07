@@ -1,5 +1,11 @@
 <script setup>
-import UserLayout from '@/layout/UserLayout.vue';
+import UserLayout from '@/layout/UserLayout.vue'
+import Product from '@/components/Product.vue'
+
+import { useProductStore } from '@/stores/user/product'
+
+const productStore = useProductStore()
+
 </script>
 
 
@@ -13,5 +19,9 @@ import UserLayout from '@/layout/UserLayout.vue';
                 </div>
             </div>
         </div>
-    </UserLayout>   
+         
+        <Product 
+        :products="productStore.list">            
+        </Product>
+    </UserLayout>
 </template>
