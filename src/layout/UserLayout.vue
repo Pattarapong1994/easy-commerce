@@ -1,39 +1,42 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
+import { useCartStore } from '@/stores/user/cart'
 
+const router = useRouter()
+const cartStore = useCartStore()
 
-const router =useRouter()
-
-const isLoggedIn =ref(false)
-const searchText =ref('')
+const isLoggedIn = ref(false)
+const searchText = ref('')
 
 
 const handdleSearch = (event) => {
-    if(event.key ==='Enter') {
+    if (event.key === 'Enter') {
         router.push({
-            name:'search',
-            query:{
-                q:searchText.value
+            name: 'search',
+            query: {
+                q: searchText.value
             }
         })
-    } 
+    }
 }
 
-onMounted(() =>  {{
-    if(localStorage.getItem('isLoggedIn')){
-        isLoggedIn.value = true
-    }}
+onMounted(() => {
+    {
+        if (localStorage.getItem('isLoggedIn')) {
+            isLoggedIn.value = true
+        }
+    }
 })
 
 
 const login = () => {
     isLoggedIn.value = true
     localStorage.setItem('isLoggedIn', true)
-    
+
 }
 const logout = () => {
-    isLoggedIn.value =false
+    isLoggedIn.value = false
     localStorage.removeItem('isLoggedIn')
 
 }
@@ -48,9 +51,8 @@ const logout = () => {
                 <RouterLink :to="{ name: 'home' }" class="btn btn-ghost text-xl">MEOW SHOP</RouterLink>
             </div>
             <div class="form-control">
-                <input type="text" placeholder="Search" 
-                class="input input-bordered w-24 md:w-auto rounded-full"  
-                v-model="searchText" @keyup="handdleSearch"/>
+                <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto rounded-full"
+                    v-model="searchText" @keyup="handdleSearch" />
             </div>
             <div class="flex-none">
                 <div class="dropdown dropdown-end">
@@ -61,13 +63,13 @@ const logout = () => {
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                             </svg>
-                            <span class="badge badge-sm indicator-item">8</span>
+                            <span class="badge badge-sm indicator-item">{{ cartStore.summaryQuantity }}</span>
                         </div>
                     </div>
                     <div tabindex="0" class="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow">
                         <div class="card-body">
-                            <span class="font-bold text-lg">8 Items</span>
-                            <span class="text-info">Subtotal: $999</span>
+                            <span class="font-bold text-lg"> {{ cartStore.summaryQuantity }} Items</span>
+                            <span class="text-info">Subtotal: {{ cartStore.summaryPrice }} B</span>
                             <div class="card-actions">
                                 <RouterLink :to="{ name: 'cart' }" class="btn btn-primary btn-block">View cart</RouterLink>
                             </div>
@@ -77,10 +79,11 @@ const logout = () => {
                 <button v-if="!isLoggedIn" @click="login" class="btn btn-ghost rounded-full">
                     LOGIN
                 </button>
-                <div v-else  class="dropdown dropdown-end">
+                <div v-else class="dropdown dropdown-end">
                     <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                         <div class="w-10 rounded-full">
-                            <img src="https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small_2x/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg" >
+                            <img
+                                src="https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small_2x/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg">
                         </div>
                     </div>
                     <ul tabindex="0"
