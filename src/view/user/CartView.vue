@@ -24,7 +24,7 @@ const changeQuantity = (event, index) => {
                 </div>
                 <div v-else v-for=" (item, index) in cartStore.items" class="flex bg-base-100 m-6 py-4 rounded-lg">
                     <div class="flex-1">
-                        <img class="w-full p-10" :src="item.imageUrl">
+                        <img class="w-full p-8" :src="item.imageUrl">
                     </div>
                     <div class="flex-1 ">
                         <div class="flex relative flex-col justify-between h-full">
@@ -40,7 +40,7 @@ const changeQuantity = (event, index) => {
                                 </select>
                                 
                             </div>
-                            <div @click="cartStore.removeItemInCart(index)" class="absolute top-0 right-0 mx-4 btn rounded-full">
+                            <div @click="cartStore.removeItemInCart(index)" class="absolute top-0 right-0 mx-4">
                                 <Close></Close>
                             </div>
                             

@@ -1,6 +1,6 @@
 <script setup>
 import { reactive } from 'vue'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 
 import UserLayout from '@/layout/UserLayout.vue'
 
@@ -26,6 +26,8 @@ const formData = [
     },
 ]
 
+
+const router = useRouter()
 const cartStore = useCartStore()
 
 const userFormData = reactive({
@@ -36,7 +38,8 @@ const userFormData = reactive({
 })
 
 const payment = () => {
-    console.log(userFormData)
+    cartStore.placeOrder(userFormData)
+    router.push({name: 'success'})
 }
 </script>
 
@@ -60,8 +63,8 @@ const payment = () => {
                 </label>
                 <button @click="payment" class="btn btn-neutral w-full rounded-full      mt-4">ชำระเงิน</button>
             </section>
-            <section class="flex-auto w-32 bg-base-300">
-                <div v-for=" item in cartStore.items " class="flex bg-base-200 m-8 py-4">
+            <section class="flex-auto w-32 bg-base-300 px-2">
+                <div v-for=" item in cartStore.items" class="flex bg-base-200 m-8 py-4 rounded-lg">
                     <div class="flex-1">
                         <img class="w-full p-8" :src="item.imageUrl">
                     </div>
@@ -71,10 +74,29 @@ const payment = () => {
                                 <div><b>{{ item.name }}</b></div>
                                 <div> จำนวน : {{ item.quantity }}</div>
                             </div>
-                            <RouterLink :to="{name:'cart'}">Edit</RouterLink>
-
+                            <RouterLink :to="{ name: 'cart' }">Edit</RouterLink>
                         </div>
                     </div>
+                </div>
+                <div class="divider"></div>
+                <div class="p-4">
+                    <div><b>Order Summary</b></div>
+                    <div class="flex justify-between">
+                        <div>ราคาสินค้าทั้งหมด</div>
+                        <div> {{ cartStore.summaryPrice }} B</div>
+                    </div>
+                    <div class="flex justify-between">
+                        <div>ค่าส่ง</div>
+                        <div> 0 B</div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="flex justify-between p-4 mb-4">
+                    <div>ราคาทั้งหมด</div>
+                    <div> {{ cartStore.summaryPrice }} B</div>
+                </div>
+                <div>
+
                 </div>
             </section>
         </div>
