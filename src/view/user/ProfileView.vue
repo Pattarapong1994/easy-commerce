@@ -26,7 +26,7 @@ const updateProfile = () => {
         email: email.value
     }
     localStorage.setItem('profile-data', JSON.stringify(profileData))
-    alert('Success update profile. ')
+    alert('Success update profile.')
 }
 
 onMounted(() => {
