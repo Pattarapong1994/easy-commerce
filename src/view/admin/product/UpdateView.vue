@@ -3,5 +3,7 @@ import AdminLayout from '@/layout/AdminLayout.vue'
 </script>
 
 <template>
-    ProductUpdateView
+    <AdminLayout>
+        ProductUpdateView
+    </AdminLayout>
 </template>
