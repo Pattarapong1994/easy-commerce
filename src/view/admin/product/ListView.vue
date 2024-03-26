@@ -4,6 +4,7 @@ import { useAdminProductStore } from '@/stores/admin/product'
 import { onMounted } from 'vue'
 
 import AdminLayout from '@/layout/AdminLayout.vue'
+
 import Edit from '@/components/icons/Edit.vue'
 import Trash from '@/components/icons/Trash.vue'
 import Table from '@/components/Table.vue'
@@ -35,7 +36,7 @@ const removeProduct = (index) => {
           <img :src="product.image" class="w-12">
         </td>
         <td>{{ product.price }}</td>
-        <td>{{ product.remainQuantity }} / {{ product.quantity }}</td>
+        <td>{{ product.remainQuantity  }} / {{ product.quantity }}</td>
         <td>
           <div class="badge gap-2" :class="product.status === 'Open' ? 'badge-success' : 'badge-error'">
             {{ product.status }}</div>
