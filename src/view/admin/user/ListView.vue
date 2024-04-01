@@ -4,8 +4,6 @@ import { RouterLink } from 'vue-router'
 
 import { useAdminUserStore } from '@/stores/admin/user'
 
-import Edit from '@/components/icons/Edit.vue'
-import Trash from '@/components/icons/Trash.vue'
 import Table from '@/components/Table.vue'
 
 const adminUserStore = useAdminUserStore()
@@ -13,10 +11,10 @@ const adminUserStore = useAdminUserStore()
 const changeStatus = (index) => {
     let selectedUser = adminUserStore.list[index]
     selectedUser.status = selectedUser.status === 'active' ? 'inactive' : 'active'
-    adminUserStore.updateUser(selectedUser)
+    adminUserStore.updateUser(index, selectedUser)
 }
 
-</script>
+</script> 
 
 
 <template>
@@ -29,12 +27,15 @@ const changeStatus = (index) => {
             <tr v-for="user, index in adminUserStore.list">
                 <td>{{ user.fullname }}</td>
                 <td>{{ user.role }}</td>
-                <td>{{ user.status }}</td>
+                <td >
+                    <div class="badge gap-2" :class="user.status === 'active' ? 'badge-success' : 'badge-warning'">
+                        {{ user.status }}
+                    </div>
+                </td>
                 <td>{{ user.updatedAt }}</td>
                 <td>
                     <div class="flex gap-2">
-                        <RouterLink 
-                        :to="{ name: 'admin-user-update', params: { id: index } }" class="btn rounded-full" @click="updatedUser(index)">Edit</RouterLink>
+                        <RouterLink :to="{ name: 'admin-user-update', params: { id: index } }" class="btn rounded-full">Edit</RouterLink>
 
 
                         <button class="btn rounded-full" @click="changeStatus(index)">

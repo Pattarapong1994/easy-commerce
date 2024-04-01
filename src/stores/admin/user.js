@@ -1,6 +1,6 @@
-import { defineStore } from "pinia"
+import { defineStore } from 'pinia'
 
-export const useAdminUserStore = defineStore("admin-user", {
+export const useAdminUserStore = defineStore('admin-user', {
     state: () => ({
         list: [
             {
