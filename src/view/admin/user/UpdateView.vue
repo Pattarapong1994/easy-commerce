@@ -4,8 +4,7 @@ import AdminLayout from '@/layout/AdminLayout.vue'
 import { useRoute, useRouter } from 'vue-router'
 
 import { useAdminUserStore } from '@/stores/admin/user'
-
-
+import { useEventStore } from '@/stores/event'
 const formData = [
     {
         name: 'Name',
@@ -27,6 +26,8 @@ const formData = [
 ]
 
 const adminUserStore = useAdminUserStore()
+const eventStore = useEventStore()
+
 const route = useRoute()
 const router = useRouter()
 
@@ -51,6 +52,7 @@ onMounted(() => {
 
 const updateUser = () => {
     adminUserStore.updateUser(userIndex.value, userData)
+    eventStore.popupMessage('info', 'Update user successful')
     router.push({ name: 'admin-user-list' })
 }
 
